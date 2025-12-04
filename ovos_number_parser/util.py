@@ -305,7 +305,8 @@ class NumberVocabulary:
     pluralize: Callable[[str], str] = lambda word: word
     singularize: Callable[[str], str] = lambda word: word
 
-    def get_number_strings(self, scale: Scale = Scale.LONG) -> Dict[str, int]:
+    def get_number_strings(self, scale: Optional[Scale] = None) -> Dict[str, int]:
+        scale = scale or self.DEFAULT_SCALE
         SCALES = self.SHORT_SCALE if scale == Scale.SHORT else self.LONG_SCALE
         male = {
             **self.ALT_SPELLINGS,
@@ -329,7 +330,8 @@ class NumberVocabulary:
             **plural
         }
 
-    def get_ordinal_strings(self, scale: Scale = Scale.LONG) -> Dict[str, int]:
+    def get_ordinal_strings(self, scale: Optional[Scale] = None) -> Dict[str, int]:
+        scale = scale or self.DEFAULT_SCALE
         SCALES = self.ORDINAL_SHORT_SCALE if scale == Scale.SHORT else self.ORDINAL_LONG_SCALE
         male = {
             **{v: k for k, v in self.ORDINAL_UNITS.items()},
@@ -493,7 +495,7 @@ class RomanceNumberExtractor:
 
     def numbers_to_digits(self,
                           utterance: str,
-                          scale: Scale = Scale.LONG
+                          scale: Optional[Scale] = None
                           ) -> str:
         """
         Converts written numbers in a text string to their digit equivalents, preserving all other text.
@@ -507,6 +509,7 @@ class RomanceNumberExtractor:
         Returns:
             str: The input text with written numbers replaced by their digit representations.
         """
+        scale = scale or self.vocab.DEFAULT_SCALE
         words = word_tokenize(utterance)
         output = []
         i = 0
@@ -549,7 +552,7 @@ class RomanceNumberExtractor:
     def pronounce_number(self,
                          number: Union[int, float],
                          places: int = 5,
-                         scale: Scale = Scale.LONG,
+                         scale: Optional[Scale] = None,
                          ordinals: bool = False,
                          digits: DigitPronunciation = DigitPronunciation.FULL_NUMBER,
                          gender: GrammaticalGender = GrammaticalGender.MASCULINE
@@ -567,6 +570,7 @@ class RomanceNumberExtractor:
         Returns:
             str: The number expressed as a phrase.
         """
+        scale = scale or self.vocab.DEFAULT_SCALE
         if not isinstance(number, (int, float)):
             raise TypeError("Number must be an int or float.")
 
@@ -674,7 +678,7 @@ class RomanceNumberExtractor:
 
     def pronounce_fraction(self,
                            word: str,
-                           scale: Scale = Scale.LONG) -> str:
+                           scale: Optional[Scale] = None) -> str:
         """
         Return the pronunciation of a fraction given as a string (e.g., "1/2").
 
@@ -686,6 +690,7 @@ class RomanceNumberExtractor:
         Returns:
             str: The pronunciation of the fraction.
         """
+        scale = scale or self.vocab.DEFAULT_SCALE
         n1, n2 = word.split("/")
         n1_int, n2_int = int(n1), int(n2)
 
@@ -711,7 +716,7 @@ class RomanceNumberExtractor:
     def pronounce_ordinal(self,
                           number: Union[int, float],
                           gender: GrammaticalGender = GrammaticalGender.MASCULINE,
-                          scale: Scale = Scale.LONG
+                          scale: Optional[Scale] = None
                           ) -> str:
         """
         Return the ordinal pronunciation of a number, supporting grammatical gender, scale (short or long), and language variant (Brazilian or European Portuguese).
@@ -727,6 +732,7 @@ class RomanceNumberExtractor:
         Raises:
             TypeError: If `number` is not an int or float.
         """
+        scale = scale or self.vocab.DEFAULT_SCALE
         if not isinstance(number, (int, float)):
             raise TypeError("Number must be an int or float.")
         if number == 0:

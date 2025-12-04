@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Union
+from typing import Union, Optional
 import warnings
 from ovos_number_parser.util import (Scale, GrammaticalGender,
                                      DigitPronunciation,
@@ -367,7 +367,7 @@ PT_BR = RomanceNumberExtractor(_PT_BR)
 def pronounce_ordinal_pt(
         number: Union[int, float],
         gender: GrammaticalGender = GrammaticalGender.MASCULINE,
-        scale: Scale = Scale.LONG,
+        scale: Optional[Scale] = None,
         variant: PortugueseVariant = PortugueseVariant.PT
 ) -> str:
     """
@@ -391,7 +391,9 @@ def pronounce_ordinal_pt(
         stacklevel=2,
     )
     if variant == PortugueseVariant.PT:
+        scale = scale or PT_PT.vocab.DEFAULT_SCALE
         return PT_PT.pronounce_ordinal(number, gender, scale)
+    scale = scale or PT_BR.vocab.DEFAULT_SCALE
     return PT_BR.pronounce_ordinal(number, gender, scale)
 
 
@@ -424,7 +426,7 @@ def is_ordinal_pt(input_str: str) -> bool:
 def extract_number_pt(
         text: str,
         ordinals: bool = False,
-        scale: Scale = Scale.LONG,
+        scale: Optional[Scale] = None,
         variant: PortugueseVariant = PortugueseVariant.PT
 ) -> Union[int, float, bool]:
     """
@@ -436,14 +438,16 @@ def extract_number_pt(
         stacklevel=2,
     )
     if variant == PortugueseVariant.PT:
+        scale = scale or PT_PT.vocab.DEFAULT_SCALE
         return PT_PT.extract_number(text, ordinals, scale)
+    scale = scale or PT_BR.vocab.DEFAULT_SCALE
     return PT_BR.extract_number(text, ordinals, scale)
 
 
 def pronounce_number_pt(
         number: Union[int, float],
         places: int = 5,
-        scale: Scale = Scale.LONG,
+        scale: Optional[Scale] = None,
         variant: PortugueseVariant = PortugueseVariant.PT,
         ordinals: bool = False,
         digits: DigitPronunciation = DigitPronunciation.FULL_NUMBER,
@@ -458,13 +462,15 @@ def pronounce_number_pt(
         stacklevel=2,
     )
     if variant == PortugueseVariant.PT:
+        scale = scale or PT_PT.vocab.DEFAULT_SCALE
         return PT_PT.pronounce_number(number, places, scale, ordinals, digits, gender)
+    scale = scale or PT_BR.vocab.DEFAULT_SCALE
     return PT_BR.pronounce_number(number, places, scale, ordinals, digits, gender)
 
 
 def numbers_to_digits_pt(
         utterance: str,
-        scale: Scale = Scale.LONG,
+        scale: Optional[Scale] = None,
         variant: PortugueseVariant = PortugueseVariant.PT
 ) -> str:
     """
@@ -476,13 +482,15 @@ def numbers_to_digits_pt(
         stacklevel=2,
     )
     if variant == PortugueseVariant.PT:
+        scale = scale or PT_PT.vocab.DEFAULT_SCALE
         return PT_PT.numbers_to_digits(utterance, scale)
+    scale = scale or PT_BR.vocab.DEFAULT_SCALE
     return PT_BR.numbers_to_digits(utterance, scale)
 
 
 
 def pronounce_fraction_pt(word: str,
-                          scale: Scale = Scale.LONG,
+                          scale: Optional[Scale] = None,
                           variant: PortugueseVariant = PortugueseVariant.PT) -> str:
     """
     DEPRECATED
@@ -493,7 +501,9 @@ def pronounce_fraction_pt(word: str,
         stacklevel=2,
     )
     if variant == PortugueseVariant.PT:
+        scale = scale or PT_PT.vocab.DEFAULT_SCALE
         return PT_PT.pronounce_fraction(word, scale)
+    scale = scale or PT_BR.vocab.DEFAULT_SCALE
     return PT_BR.pronounce_fraction(word, scale)
 
 

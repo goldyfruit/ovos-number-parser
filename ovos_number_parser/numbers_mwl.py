@@ -1,6 +1,6 @@
 from ovos_number_parser.util import (Scale, GrammaticalGender, DigitPronunciation,
                                      NumberVocabulary, RomanceNumberExtractor)
-from typing import Union
+from typing import Union, Optional
 import warnings
 
 
@@ -233,7 +233,7 @@ MWL = RomanceNumberExtractor(_MWL)
 def pronounce_ordinal_mwl(
         number: Union[int, float],
         gender: GrammaticalGender = GrammaticalGender.MASCULINE,
-        scale: Scale = Scale.LONG
+        scale: Optional[Scale] = None
 ) -> str:
     """
     DEPRECATED
@@ -243,6 +243,7 @@ def pronounce_ordinal_mwl(
         DeprecationWarning,
         stacklevel=2,
     )
+    scale = scale or MWL.vocab.DEFAULT_SCALE
     return MWL.pronounce_ordinal(number, gender, scale)
 
 
@@ -275,7 +276,7 @@ def is_ordinal_mwl(input_str: str) -> bool:
 def extract_number_mwl(
         text: str,
         ordinals: bool = False,
-        scale: Scale = Scale.LONG,
+        scale: Optional[Scale] = None
 ) -> Union[int, float, bool]:
     """
     DEPRECATED
@@ -285,13 +286,14 @@ def extract_number_mwl(
         DeprecationWarning,
         stacklevel=2,
     )
+    scale = scale or MWL.vocab.DEFAULT_SCALE
     return MWL.extract_number(text, ordinals, scale)
 
 
 def pronounce_number_mwl(
         number: Union[int, float],
         places: int = 5,
-        scale: Scale = Scale.LONG,
+        scale: Optional[Scale] = None,
         ordinals: bool = False,
         digits: DigitPronunciation = DigitPronunciation.FULL_NUMBER,
         gender: GrammaticalGender = GrammaticalGender.MASCULINE
@@ -304,12 +306,13 @@ def pronounce_number_mwl(
         DeprecationWarning,
         stacklevel=2,
     )
+    scale = scale or MWL.vocab.DEFAULT_SCALE
     return MWL.pronounce_number(number, places, scale, ordinals, digits, gender)
 
 
 def numbers_to_digits_mwl(
         utterance: str,
-        scale: Scale = Scale.LONG
+        scale: Optional[Scale] = None
 ) -> str:
     """
     DEPRECATED
@@ -319,11 +322,12 @@ def numbers_to_digits_mwl(
         DeprecationWarning,
         stacklevel=2,
     )
+    scale = scale or MWL.vocab.DEFAULT_SCALE
     return MWL.numbers_to_digits(utterance, scale)
 
 
 
-def pronounce_fraction_mwl(word: str, scale: Scale = Scale.LONG) -> str:
+def pronounce_fraction_mwl(word: str, scale: Optional[Scale] = None) -> str:
     """
     DEPRECATED
     """
@@ -332,6 +336,7 @@ def pronounce_fraction_mwl(word: str, scale: Scale = Scale.LONG) -> str:
         DeprecationWarning,
         stacklevel=2,
     )
+    scale = scale or MWL.vocab.DEFAULT_SCALE
     return MWL.pronounce_fraction(word, scale)
 
 
