@@ -313,11 +313,14 @@ class NumberVocabulary:
             **{v: k for k, v in self.UNITS.items()},
             **{v: k for k, v in self.TENS.items()},
             **{v: k for k, v in self.HUNDREDS.items()},
-            **{v: k for k, v in SCALES.items()}
+            **{v: k for k, v in SCALES.items()},
+            **{v: k for k, v in self.GENDERED_SPELLINGS.get(GrammaticalGender.MASCULINE, {}).items()},
         }
 
-        female = {self.swap_gender(k, GrammaticalGender.FEMININE): v
-                  for k, v in male.items()}
+        female = {
+            **{self.swap_gender(k, GrammaticalGender.FEMININE): v for k, v in male.items()},
+            **{v: k for k, v in self.GENDERED_SPELLINGS.get(GrammaticalGender.FEMININE, {}).items()},
+        }
 
         plural = {
             **{self.pluralize(k): v for k, v in male.items()},
@@ -339,8 +342,9 @@ class NumberVocabulary:
             **{v: k for k, v in self.ORDINAL_HUNDREDS.items()},
             **{v: k for k, v in SCALES.items()}
         }
-        female = {self.swap_gender(k, GrammaticalGender.FEMININE): v
-                  for k, v in male.items()}
+        female = {
+            **{self.swap_gender(k, GrammaticalGender.FEMININE): v for k, v in male.items()},
+        }
         plural = {
             **{self.pluralize(k): v for k, v in male.items()},
             **{self.pluralize(k): v for k, v in female.items()}
@@ -577,9 +581,6 @@ class RomanceNumberExtractor:
         if ordinals:
             return self.pronounce_ordinal(number, gender, scale)
 
-        if number in self.vocab.UNITS:
-            return self.vocab.UNITS[number]
-
         if number < 0:
             return f"{self.vocab.NEGATIVE_SIGN[0]} {self.pronounce_number(abs(number), places, scale=scale, digits=digits, gender=gender)}"
 
@@ -616,7 +617,7 @@ class RomanceNumberExtractor:
                         # round up last digit if needed
                         if after_last_digit >= 5:
                             last_digit += 1
-                        decimal_pronunciation_parts.append(self._pronounce_up_to_999(last_digit, gender))
+                        decimal_pronunciation_parts.append(self._pronounce_up_to_999(last_digit, gender=gender))
                     else:
                         if len(decimal_part_str) > places:
                             last_digit = int(decimal_part_str[places - 1])
@@ -667,7 +668,6 @@ class RomanceNumberExtractor:
 
         # Pronounce the remainder and join with the correct conjunction
         remainder_str = self.pronounce_number(remainder, places, scale)
-
         # Conjunction logic: add JOIN_WORD if the remainder is the last group and is
         # less than 100 or a multiple of 100.
         join_word = self.vocab.JOIN_WORD[0] if len(self.vocab.JOIN_WORD) else ""
@@ -792,6 +792,8 @@ class RomanceNumberExtractor:
         """
         if not 0 <= n <= 999:
             raise ValueError("Number must be between 0 and 999.")
+        if n in self.vocab.GENDERED_SPELLINGS.get(gender, {}):
+            return self.vocab.GENDERED_SPELLINGS[gender][n]
         if n in self.vocab.UNITS:
             return self.vocab.UNITS[n]
         if n in self.vocab.TENS:
@@ -823,7 +825,7 @@ class RomanceNumberExtractor:
                         parts.append(self.vocab.JOIN_WORD[0])
                     parts.append(self.vocab.UNITS[unit])
 
-        return " ".join(parts)
+        return self.vocab.swap_gender(" ".join(parts), gender)
 
     def _pronounce_ordinal_up_to_999(self,
                                      n: int,
@@ -859,7 +861,7 @@ class RomanceNumberExtractor:
         # Handle tens and units
         if n > 0:
             # Ordinal numbers don't use 'e' as a separator
-            if n % 10 == 0 and n > 10:
+            if n % 10 == 0:
                 tens_word_masc = self.vocab.ORDINAL_TENS[n]
                 parts.append(self.vocab.swap_gender(tens_word_masc, gender))
             elif n < 10:
@@ -874,4 +876,4 @@ class RomanceNumberExtractor:
                 units_word_masc = self.vocab.ORDINAL_UNITS[n % 10]
                 parts.append(f"{self.vocab.swap_gender(tens_word_masc, gender)} {self.vocab.swap_gender(units_word_masc, gender)}")
 
-        return " ".join(parts)
+        return self.vocab.swap_gender(" ".join(parts), gender)

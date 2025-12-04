@@ -5,10 +5,10 @@ import warnings
 
 
 def swap_gender_mwl(word: str, gender: GrammaticalGender) -> str:
-    if word == "un" and gender == GrammaticalGender.FEMININE:
-        return "ũa"
-    elif word == "ũa" and gender == GrammaticalGender.MASCULINE:
-        return "un"
+    if word.endswith("un") and gender == GrammaticalGender.FEMININE:
+        return word[:-2] + "ũa"
+    elif word.endswith("ũa") and gender == GrammaticalGender.MASCULINE:
+        return word[:-2] + "ũa"
     elif word == "dous" and gender == GrammaticalGender.FEMININE:
         return "dues"
     elif word == "dues" and gender == GrammaticalGender.MASCULINE:
@@ -83,6 +83,15 @@ _MWL = NumberVocabulary(
         18: 'zuio',
         19: 'zanuobe',
         20: 'binte',
+        21: "bint'i un",
+        22: "bint'i dous",
+        23: "bint'i trés",
+        24: "bint'i quatro",
+        25: "bint'i cinco",
+        26: "bint'i seis",
+        27: "bint'i siete",
+        28: "bint'i uito",
+        29: "bint'i nuobe",
         30: 'trinta',
         40: 'quarenta',
         50: 'cinquenta',

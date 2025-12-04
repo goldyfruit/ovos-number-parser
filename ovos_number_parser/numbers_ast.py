@@ -14,8 +14,9 @@ def swap_gender_ast(word: str, gender: GrammaticalGender) -> str:
         if word.endswith('os'): # plural masculine
             return word[:-2] + 'as'
     else:
-        if word.endswith('o'): # neuter
-            return word[:-1] + 'u'
+        # NOTE: need a native speaker to review, does neuter apply to numbers?
+        #if word.endswith('o'): # neuter
+        #    return word[:-1] + 'u'
         if word.endswith('a'): # feminine
             return word[:-1] + 'u'
         if word.endswith('es'): # plural neuter

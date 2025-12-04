@@ -60,7 +60,7 @@ class TestPronunciationMWL(unittest.TestCase):
         self.assertEqual(MWL.pronounce_number(10), "dieç")
         self.assertEqual(MWL.pronounce_number(16), "zasseis")
         self.assertEqual(MWL.pronounce_number(20), "binte")
-        self.assertEqual(MWL.pronounce_number(21), "binte i un")
+        self.assertEqual(MWL.pronounce_number(21), "bint'i un")
         self.assertEqual(MWL.pronounce_number(35), "trinta i cinco")
         self.assertEqual(MWL.pronounce_number(99), "nobenta i nuobe")
 
@@ -92,7 +92,6 @@ class TestPronunciationMWL(unittest.TestCase):
         self.assertEqual(MWL.pronounce_number(-10), "menos dieç")
         self.assertEqual(MWL.pronounce_number(-3.14), "menos trés bírgula catorze")
 
-    @unittest.skip("TODO - fix me")
     def test_gendered_cardinals(self):
         # 1 and 2 are gendered
         self.assertEqual(MWL.pronounce_number(1, gender=GrammaticalGender.FEMININE), "ũa")
@@ -103,8 +102,8 @@ class TestPronunciationMWL(unittest.TestCase):
         self.assertEqual(MWL.pronounce_number(21, gender=GrammaticalGender.FEMININE), "bint'i ũa")
 
         # 102 (uses 2) is gendered
-        self.assertEqual(MWL.pronounce_number(102, gender=GrammaticalGender.MASCULINE), "cien i dous")
-        self.assertEqual(MWL.pronounce_number(102, gender=GrammaticalGender.FEMININE), "cien i dues")
+        self.assertEqual(MWL.pronounce_number(102, gender=GrammaticalGender.MASCULINE), "ciento i dous")
+        self.assertEqual(MWL.pronounce_number(102, gender=GrammaticalGender.FEMININE), "ciento i dues")
 
     def test_fractions(self):
         self.assertEqual(MWL.pronounce_fraction("1/2"), "un meio")
@@ -124,15 +123,13 @@ class TestOrdinalPronunciationMWL(unittest.TestCase):
         self.assertEqual(MWL.pronounce_ordinal(1), "purmerio")
         self.assertEqual(MWL.pronounce_ordinal(2), "segundo")
         self.assertEqual(MWL.pronounce_ordinal(3), "terceiro")
-        # @unittest.skip("TODO - fix me")
-        #self.assertEqual(MWL.pronounce_ordinal(10), "décimo")
+        self.assertEqual(MWL.pronounce_ordinal(10), "décimo")
 
     def test_basic_ordinals_feminine(self):
         self.assertEqual(MWL.pronounce_ordinal(1, GrammaticalGender.FEMININE), "purmeria")
         self.assertEqual(MWL.pronounce_ordinal(2, GrammaticalGender.FEMININE), "segunda")
         self.assertEqual(MWL.pronounce_ordinal(3, GrammaticalGender.FEMININE), "terceira")
-        #@unittest.skip("TODO - fix me")
-        #self.assertEqual(MWL.pronounce_ordinal(10, GrammaticalGender.FEMININE), "décima")
+        self.assertEqual(MWL.pronounce_ordinal(10, GrammaticalGender.FEMININE), "décima")
 
     def test_complex_ordinals(self):
         # 21st (vingésimo primeiro / primeira)
@@ -198,12 +195,10 @@ class TestDigitsMWL(unittest.TestCase):
         self.assertEqual(MWL.numbers_to_digits("cien i dous dies"), "102 dies")
         self.assertEqual(MWL.numbers_to_digits("un milhon de beçs"), "1000000 de beçs")
 
-    @unittest.skip("TODO - fix me")
     def test_decimal_conversion(self):
         self.assertEqual(MWL.numbers_to_digits("la distáncia ye de trés bírgula catorze km"),
                          "la distáncia ye de 3.14 km")
 
-    @unittest.skip("TODO - fix me")
     def test_negative_conversion(self):
         self.assertEqual(MWL.numbers_to_digits("temperatura de menos binte graus"), "temperatura de -20 graus")
 
@@ -223,7 +218,6 @@ class TestIntegrationMWL(unittest.TestCase):
             extracted = MWL.extract_number(text)
             self.assertEqual(extracted, n, f"Failed on number: {n}. Text: {text}")
 
-    @unittest.skip("TODO - fix me")
     def test_large_numbers_round_trip(self):
         """Test round trip for numbers that require large scale support."""
         n = 1_234_567_899
@@ -239,7 +233,6 @@ class TestIntegrationMWL(unittest.TestCase):
         extracted = MWL.extract_number(text)
         self.assertEqual(extracted, n)
 
-    @unittest.skip("TODO - fix me")
     def test_gender_sensitive_round_trip(self):
         """Test round trip for gendered numbers."""
         # Feminine 1

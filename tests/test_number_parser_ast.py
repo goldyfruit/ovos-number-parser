@@ -113,7 +113,6 @@ class TestExtractAST(unittest.TestCase):
     def test_million_plus(self):
         self.assertEqual(AST.extract_number("dos millones trescientos"), 2_000_300)
 
-    @unittest.skip("TODO - fix me")
     def test_fraction_phrase(self):
         self.assertAlmostEqual(AST.extract_number("tres cuartos"), 0.75)
 
@@ -184,7 +183,6 @@ class TestIntegrationAST(unittest.TestCase):
             extracted = AST.extract_number(text)
             self.assertEqual(extracted, n)
 
-    @unittest.skip("TODO - fix me")
     def test_large_numbers(self):
         text = AST.pronounce_number(1_234_567)
         extracted = AST.extract_number(text)
