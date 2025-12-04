@@ -57,7 +57,7 @@ _MWL = NumberVocabulary(
     JOINER_ON_HUNDREDS=True,  # add JOIN_WORD from 100-1000 - "duzentos e um"
     JOINER_ON_THOUSANDS=False,  # add JOIN_WORD from 1000-10000 - "mil e duzentos"
 
-    DECIMAL_MARKER=["ponto", "bírgula", "birgula", ".", ","],
+    DECIMAL_MARKER=["bírgula", "ponto", "birgula", ".", ","],
     NEGATIVE_SIGN=["menos"],
     UNITS={
         0: 'zero',
