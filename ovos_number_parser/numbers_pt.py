@@ -55,6 +55,7 @@ def pluralize_pt(word: str):
     return word
 
 
+# https://pt.wikipedia.org/wiki/Numerais_em_l%C3%ADngua_portuguesa
 _PT_PT = NumberVocabulary(
     LANG="pt-PT",
 
@@ -141,10 +142,33 @@ _PT_PT = NumberVocabulary(
         20: 'vigésimo',
         30: 'trigésimo',
         100: 'centésimo',
+        200: 'duocentésimo',
+        300: 'trecentésimo',
+        400: 'quadrigentésimo', # / 'quadringentésimo'
+        500: 'quingentésimo',
+        600: 'sexcentésimo', # / 'seiscentésimo'
+        700: 'septingentésimo', # / 'setingentésimo'
+        800: 'octingentésimo',
+        900: 'nonngentésimo', # / 'noningentésimo'
         1000: 'milésimo'
     },
     FRACTION_FEMALE={2: "meia"},
     SHORT_SCALE={
+        10 ** 303: "centilião",
+        10 ** 63: "vigintilião", # / "vintilião"
+        10 ** 60: "novendecilião",
+        10 ** 57: "octodecilião",
+        10 ** 54: "septendecilião",
+        10 ** 51: "sedecilião",
+        10 ** 48: "quindecilião", # Quinciodecilião
+        10 ** 45: "quadriodecilião", # quatuordecilião
+        10 ** 42: "tredecilião", # tridecilião / triodecilião
+        10 ** 39: "dudecilião", # duodecilião
+        10 ** 36: "undecilião",  # unodecilião
+        10 ** 33: "decilião",
+        10 ** 30: "nonilião",
+        10 ** 27: "octilião",
+        10 ** 24: "septilião",
         10 ** 21: "sextilião",
         10 ** 18: "quintilião",
         10 ** 15: "quatrilião",
@@ -154,6 +178,21 @@ _PT_PT = NumberVocabulary(
         10 ** 3: "mil"
     },
     LONG_SCALE={
+        10 ** 600: "centilião",
+        10 ** 120: "vigintilião",  # / "vintilião"
+        10 ** 114: "novendecilião",
+        10 ** 108: "octodecilião",
+        10 ** 102: "septendecilião",
+        10 ** 96: "sedecilião",
+        10 ** 90: "quindecilião",  # Quinciodecilião
+        10 ** 84: "quadriodecilião",  # quatuordecilião
+        10 ** 78: "tredecilião",  # tridecilião / triodecilião
+        10 ** 72: "dudecilião",  # duodecilião
+        10 ** 66: "undecilião",  # unodecilião
+        10 ** 60: "decilião",
+        10 ** 54: "nonilião",
+        10 ** 48: "octilião",
+        10 ** 42: "septilião",
         10 ** 36: "sextilião",
         10 ** 30: "quintilião",
         10 ** 24: "quatrilião",
@@ -254,6 +293,21 @@ _PT_BR = NumberVocabulary(
     FRACTION=_PT_PT.FRACTION,
     FRACTION_FEMALE=_PT_PT.FRACTION_FEMALE,
     SHORT_SCALE={
+        10 ** 303: "centilhão",
+        10 ** 63: "vigintilhão",  # / "vintilhão"
+        10 ** 60: "novendecilhão",
+        10 ** 57: "octodecilhão",
+        10 ** 54: "septendecilhão",
+        10 ** 51: "sedecilhão",
+        10 ** 48: "quindecilhão",  # Quinciodecilhão
+        10 ** 45: "quadriodecilhão",  # quatuordecilhão
+        10 ** 42: "tredecilhão",  # tridecilhão / triodecilhão
+        10 ** 39: "dudecilhão",  # duodecilhão
+        10 ** 36: "undecilhão",  # unodecilhão
+        10 ** 33: "decilhão",
+        10 ** 30: "nonilhão",
+        10 ** 27: "octilhão",
+        10 ** 24: "septilhão",
         10 ** 21: "sextilhão",
         10 ** 18: "quintilhão",
         10 ** 15: "quatrilhão",
@@ -263,6 +317,21 @@ _PT_BR = NumberVocabulary(
         10 ** 3: "mil"
     },
     LONG_SCALE={
+        10 ** 600: "centilhão",
+        10 ** 120: "vigintilhão",  # / "vintilhão"
+        10 ** 114: "novendecilhão",
+        10 ** 108: "octodecilhão",
+        10 ** 102: "septendecilhão",
+        10 ** 96: "sedecilhão",
+        10 ** 90: "quindecilhão",  # Quinciodecilhão
+        10 ** 84: "quadriodecilhão",  # quatuordecilhão
+        10 ** 78: "tredecilhão",  # tridecilhão / triodecilhão
+        10 ** 72: "dudecilhão",  # duodecilhão
+        10 ** 66: "undecilhão",  # unodecilhão
+        10 ** 60: "decilhão",
+        10 ** 54: "nonilhão",
+        10 ** 48: "octilhão",
+        10 ** 42: "septilhão",
         10 ** 36: "sextilhão",
         10 ** 30: "quintilhão",
         10 ** 24: "quatrilhão",
