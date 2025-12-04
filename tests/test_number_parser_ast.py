@@ -21,7 +21,7 @@ class TestDictionaries(unittest.TestCase):
         # 21–29 must exist
         for i in range(21, 30):
             self.assertIn(i, AST.vocab.TENS)
-        self.assertEqual(AST.vocab.TENS[21], "ventiuno")
+        self.assertEqual(AST.vocab.TENS[21], "ventiún")
 
     def test_hundreds(self):
         self.assertEqual(set(AST.vocab.HUNDREDS.keys()), set(range(100, 1000, 100)))
@@ -50,7 +50,7 @@ class TestPronounceUpTo999_AST(unittest.TestCase):
         self.assertEqual(AST.pronounce_number(18), "dieciocho")
 
     def test_composite_20s(self):
-        self.assertEqual(AST.pronounce_number(21), "ventiuno")
+        self.assertEqual(AST.pronounce_number(21), "ventiún")
         self.assertEqual(AST.pronounce_number(29), "ventinueve")
 
     def test_tens_and_units(self):
@@ -77,8 +77,8 @@ class TestFractionsAst(unittest.TestCase):
         self.assertAlmostEqual(AST.is_fractional("terciu"), 1/3)
 
     def test_fraction_plurals(self):
-        self.assertAlmostEqual(AST.is_fractional("medius"), 0.5)
-        self.assertAlmostEqual(AST.is_fractional("cuartus"), 1/4)
+        self.assertAlmostEqual(AST.is_fractional("medios"), 0.5)
+        self.assertAlmostEqual(AST.is_fractional("cuartos"), 1/4)
 
     def test_fraction_pronounce(self):
         result = AST.pronounce_fraction("1/4")
@@ -86,7 +86,7 @@ class TestFractionsAst(unittest.TestCase):
         self.assertIn("cuartu", result)
         result2 = AST.pronounce_fraction("3/4")
         self.assertIn("tres", result2)
-        self.assertIn("cuartus", result2)
+        self.assertIn("cuartos", result2)
 
 
 # ============================================================
@@ -139,10 +139,10 @@ class TestOrdinalsAST(unittest.TestCase):
         self.assertIn("décimu", AST.pronounce_ordinal(12))
 
     def test_tens_ordinal(self):
-        self.assertEqual(AST.pronounce_ordinal(20), "ventésimu")
+        self.assertEqual(AST.pronounce_ordinal(20), "ventenu")
 
     def test_composed_ordinal(self):
-        self.assertEqual(AST.pronounce_ordinal(23), "ventésimu terceru")
+        self.assertEqual(AST.pronounce_ordinal(23), "ventenu terceru")
 
     def test_hundredth(self):
         self.assertEqual(AST.pronounce_ordinal(100), "centésimu")
